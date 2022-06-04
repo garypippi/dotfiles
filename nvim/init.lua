@@ -1,0 +1,15 @@
+local pippi = require'pippi'()
+
+pippi:plug(require'pippi.plug.treesitter')
+pippi:plug(require'pippi.plug.cmp')
+pippi:plug(require'pippi.plug.lsp')
+pippi:plug(require'pippi.plug.fern')
+pippi:plug(require'pippi.plug.lualine')
+pippi:plug(require'pippi.plug.telescope')
+pippi:plug(require'pippi.plug.test')
+pippi:plug(require'pippi.plug.gitgutter')
+pippi:plug(require'pippi.plug.blamer')
+pippi:plug(require'pippi.plug.theme')
+pippi:plug(require'pippi.plug.common')
+
+pippi:init('~/.config/nvim/plugged')
