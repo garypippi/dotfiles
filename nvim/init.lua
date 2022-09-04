@@ -1,5 +1,5 @@
 local plugins = {
-    ['lambdalisue/fern.vim'] = {},
+    ['lambdalisue/fern.vim'] = { branch = 'main' },
     ['lambdalisue/nerdfont.vim'] = {},
     ['lambdalisue/fern-renderer-nerdfont.vim'] = {},
     ['lambdalisue/fern-git-status.vim'] = {},

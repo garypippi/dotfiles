@@ -34,6 +34,12 @@ local settings = {
             }
         }
     },
+    ['html'] = {
+      capabilities = snippet_capability,
+    },
+    ['cssls'] = {
+      capabilities = snippet_capability,
+    },
     ['pylsp'] = {},
     ['rls'] = {},
     ['sumneko_lua'] = {
