@@ -20,7 +20,6 @@ local plugins = {
     ['airblade/vim-gitgutter'] = {},
     ['APZelos/blamer.nvim'] = {},
     ['tpope/vim-fugitive'] = {},
-    ['tyru/caw.vim'] = {},
     ['jiangmiao/auto-pairs'] = {},
     ['mattn/emmet-vim'] = {},
     ['bronson/vim-trailing-whitespace'] = {}
