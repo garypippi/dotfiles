@@ -15,17 +15,17 @@ return {
         'catppuccin/nvim',
         name = 'catppuccin',
         config = function ()
-            vim.cmd[[colorscheme catppuccin]]
-        end,
-        opts = {
-            flavour = 'macchiato',
-            transparent_background = true,
-            no_italic = true,
-            integrations = {
-                fern = true,
-                telescope = true
+            require'catppuccin'.setup{
+                flavour = 'macchiato',
+                transparent_background = true,
+                no_italic = true,
+                integrations = {
+                    fern = true,
+                    telescope = true
+                }
             }
-        }
+            vim.cmd[[colorscheme catppuccin]]
+        end
     },
     {
         -- autopair
