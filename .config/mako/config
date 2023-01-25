@@ -1,0 +1,10 @@
+font=Cousine Nerd Font Mono 10
+background-color=#404258BF
+format=%s\n%b
+border-size=1
+border-color=#6B728EFF
+border-radius=4
+margin=16,16,0,0
+padding=8,8,16,8
+anchor=top-right
+default-timeout=4000
