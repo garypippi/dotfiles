@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export EDITOR=/usr/local/bin/nvim
+export XDG_CACHE_HOME=/var/tmp/share/$USER
+export PATH=$PATH:$HOME/.local/bin:$HOME/.deno/bin
+
+exec dbus-run-session -- Hyprland
