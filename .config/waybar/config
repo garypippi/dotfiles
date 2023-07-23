@@ -1,0 +1,65 @@
+{
+  "position": "top",
+  "spacing": 8,
+  "margin-top": 4,
+  "margin-bottom": 4,
+  "modules-left": [
+    "clock",
+    "group/pulseaudio",
+    "group/mpris"
+  ],
+  "modules-center": [
+    "wlr/workspaces"
+  ],
+  "modules-right": [
+    "temperature#cputctl",
+    "temperature#amdgpu_edge"
+  ],
+  "clock": {
+    "format": "{:%Y/%m/%d %H:%M}"
+  },
+  "wlr/workspaces": {
+    "format": "{name}"
+  },
+  "temperature#cputctl": {
+    "format": "CPU {temperatureC}℃",
+    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input"
+  },
+  "temperature#amdgpu_edge": {
+    "format": "GPU {temperatureC}℃",
+    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input"
+  },
+  "group/mpris": {
+    "orientation": "horizontal",
+    "modules": [
+      "mpris#icon",
+      "mpris#text"
+    ]
+  },
+  "mpris#icon": {
+    "format": "{status_icon}",
+    "status-icons": {
+      "playing": "",
+      "paused": ""
+    }
+  },
+  "mpris#text": {
+    "format": "{title} / {artist} / {album}"
+  },
+  "group/pulseaudio": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/pulseaudio-icon",
+      "custom/pulseaudio-bar"
+    ]
+  },
+  "custom/pulseaudio-icon": {
+    "format": ""
+  },
+  "custom/pulseaudio-bar": {
+    "format": "{}",
+    "interval": "once",
+    "exec": "~/.config/waybar/scripts/get-vol-bar.sh",
+    "signal": 10
+  }
+}
