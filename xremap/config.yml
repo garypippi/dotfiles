@@ -1,0 +1,4 @@
+keymap:
+  - name: Disable CapsLock
+    remap:
+      CAPSLOCK: ESC
