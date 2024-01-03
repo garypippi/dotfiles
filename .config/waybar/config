@@ -9,7 +9,7 @@
     "group/mpris"
   ],
   "modules-center": [
-    "wlr/workspaces"
+    "hyprland/workspaces"
   ],
   "modules-right": [
     "temperature#cputctl",
@@ -18,7 +18,7 @@
   "clock": {
     "format": "{:%Y/%m/%d %H:%M}"
   },
-  "wlr/workspaces": {
+  "hyprland/workspaces": {
     "format": "{name}"
   },
   "temperature#cputctl": {
@@ -59,7 +59,7 @@
   "custom/pulseaudio-bar": {
     "format": "{}",
     "interval": "once",
-    "exec": "~/.config/waybar/scripts/get-vol-bar.sh",
+    "exec": "~/.dotfiles/waybar-get_volume_bar.sh",
     "signal": 10
   }
 }

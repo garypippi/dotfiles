@@ -306,12 +306,12 @@ local plugins = {
                         rulePaths = rulePaths
                     }
                 },
-                on_attach = function (client, bufnr)
-                    vim.api.nvim_create_autocmd('BufWritePre', {
-                        buffer = bufnr,
-                        command = 'EslintFixAll'
-                    })
-                end
+                --on_attach = function (client, bufnr)
+                --    vim.api.nvim_create_autocmd('BufWritePre', {
+                --        buffer = bufnr,
+                --        command = 'EslintFixAll'
+                --    })
+                --end
             }
             -- JSON
             lspc.jsonls.setup{
@@ -320,7 +320,8 @@ local plugins = {
                     json = {
                         schemas = {
                             { fileMatch = { 'tsconfig.json' }, url = 'http://json.schemastore.org/tsconfig' },
-                            { fileMatch = { '.eslintrc.json' }, url = 'http://json.schemastore.org/eslintrc' }
+                            { fileMatch = { '.eslintrc.json' }, url = 'http://json.schemastore.org/eslintrc' },
+                            { fileMatch = { '.prettierrc' }, url = 'https://json.schemastore.org/prettierrc.json' }
                         }
                     }
                 },
@@ -363,6 +364,34 @@ local plugins = {
             }
             -- PHP
             lspc.phpactor.setup{}
+            -- Prettier
+            local prettierd = {
+                formatCommand = 'prettierd "${INPUT}"',
+                formatStdin = true,
+                env = {
+                    'PRETTIERD_LOCAL_PRETTIER_ONLY=1',
+                    --'PRETTIERD_DEFAULT_CONFIG=' .. vim.loop.cwd() .. '/.prettierrc.json'
+                }
+            }
+            lspc.efm.setup{
+                init_options = { documentFormatting = true },
+                filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+                settings = {
+                    rootMarkers = {'.git/'},
+                    languages = {
+                        ['typescript'] = { prettierd },
+                        ['typescriptreact'] = { prettierd },
+                    }
+                },
+                on_attach = function (client, bufnr)
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        buffer = bufnr,
+                        callback = function ()
+                            vim.lsp.buf.format { async = false }
+                        end
+                    })
+                end
+            }
         end
     }
 }
