@@ -1,0 +1,15 @@
+# Inserts blank line between shell prompts.
+add_newline = true
+# Use custom format
+format = '''
+[┌─](bold #0D7377) [](#32E0C4) $directory $git_branch$git_status
+[└─>](bold #0D7377) '''
+
+[directory]
+format = '[$path](#32E0C4)'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)](purple) '
+
+[git_status]
+style = 'red'
