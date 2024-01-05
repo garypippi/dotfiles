@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 file="$HOME/Pictures/Capture/`date +%Y%m%d%H%M%S`.png"
 
