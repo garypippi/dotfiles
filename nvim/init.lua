@@ -93,7 +93,7 @@ local plugins = {
         end,
         config = function ()
             vim.fn['skkeleton#config']({
-                globalDictionaries = {'/usr/share/skk/SKK-JISYO.L'},
+                globalDictionaries = { vim.fn.stdpath('config') .. '/SKK-JISYO.L' },
                 eggLikeNewline = true
             })
         end
@@ -263,7 +263,11 @@ local plugins = {
             }
             -- CSS
             lspc.cssls.setup{
-                capabilities = snippet_capability
+                capabilities = snippet_capability,
+                cmd = {
+                    vim.fn.stdpath('config') .. '/node_modules/.bin/vscode-css-language-server',
+                    '--stdio'
+                }
             }
             -- Vim
             lspc.vimls.setup{}
@@ -276,6 +280,10 @@ local plugins = {
                 --on_attach = function (client)
                 --    client.server_capabilities.semanticTokensProvider = nil
                 --end
+                cmd = {
+                    vim.fn.stdpath('config') .. '/node_modules/.bin/vtsls',
+                    '--stdio'
+                },
                 settings = {
                     vtsls = {
                         experimental = {
@@ -301,26 +309,35 @@ local plugins = {
                 table.insert(rulePaths, 'eslint/rules')
             end
             lspc.eslint.setup{
+                cmd = {
+                    vim.fn.stdpath('config') .. '/node_modules/.bin/vscode-eslint-language-server',
+                    '--stdio'
+                },
                 settings = {
                     options = {
                         rulePaths = rulePaths
                     }
                 },
-                on_attach = function (client, bufnr)
-                    vim.api.nvim_create_autocmd('BufWritePre', {
-                        buffer = bufnr,
-                        command = 'EslintFixAll'
-                    })
-                end
+                --on_attach = function (client, bufnr)
+                --    vim.api.nvim_create_autocmd('BufWritePre', {
+                --        buffer = bufnr,
+                --        command = 'EslintFixAll'
+                --    })
+                --end
             }
             -- JSON
             lspc.jsonls.setup{
                 capabilities = snippet_capability,
+                cmd = {
+                    vim.fn.stdpath('config') .. '/node_modules/.bin/vscode-json-language-server',
+                    '--stdio'
+                },
                 settings = {
                     json = {
                         schemas = {
                             { fileMatch = { 'tsconfig.json' }, url = 'http://json.schemastore.org/tsconfig' },
-                            { fileMatch = { '.eslintrc.json' }, url = 'http://json.schemastore.org/eslintrc' }
+                            { fileMatch = { '.eslintrc.json' }, url = 'http://json.schemastore.org/eslintrc' },
+                            { fileMatch = { '.prettierrc' }, url = 'https://json.schemastore.org/prettierrc.json' }
                         }
                     }
                 },
@@ -363,6 +380,35 @@ local plugins = {
             }
             -- PHP
             lspc.phpactor.setup{}
+            -- Prettier
+            local prettierd = {
+                formatCommand = vim.fn.stdpath('config') .. '/node_modules/.bin/prettierd "${INPUT}"',
+                formatStdin = true,
+                env = {
+                    'PRETTIERD_LOCAL_PRETTIER_ONLY=1',
+                    --'PRETTIERD_DEFAULT_CONFIG=' .. vim.loop.cwd() .. '/.prettierrc.json'
+                }
+            }
+            lspc.efm.setup{
+                cmd = { vim.fn.stdpath('config') .. '/go/bin/efm-langserver' },
+                init_options = { documentFormatting = true },
+                filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+                settings = {
+                    rootMarkers = {'.git/'},
+                    languages = {
+                        ['typescript'] = { prettierd },
+                        ['typescriptreact'] = { prettierd },
+                    }
+                },
+                on_attach = function (client, bufnr)
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        buffer = bufnr,
+                        callback = function ()
+                            vim.lsp.buf.format { async = false }
+                        end
+                    })
+                end
+            }
         end
     }
 }

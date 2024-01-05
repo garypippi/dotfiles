@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "@fsouza/prettierd": "^0.25.2",
+    "@vtsls/language-server": "^0.1.23",
+    "vscode-langservers-extracted": "^4.8.0"
+  }
+}
