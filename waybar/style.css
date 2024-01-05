@@ -2,7 +2,7 @@
     margin-top: 4px;
 }
 #waybar {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.85);
     color: #EEEEEE;
 }
 .modules-left {
@@ -12,12 +12,15 @@
     padding-right: 10px;
 }
 #clock {
-    font-size: 10px;
+    margin: 6px 0 6px 0;
+    font-size: 11px;
 }
 #workspaces {
     font-size: 10px;
-    margin: 0; padding: 0;
-    border: 1px solid #B799FF;
+    margin: 4px 0 4px 0;
+    padding: 1px 4px;
+    border: 1px solid #4B527E;
+    border-radius: 0;
 }
 #workspaces button {
     margin: 0;
@@ -25,9 +28,10 @@
     min-height: 0;
     color: #EEEEEE;
     border-radius: 0;
+    font-size: 10px;
 }
 #workspaces button.active {
-    background-color: #B799FF;
+    color: #088395;
 }
 #workspaces button:hover {
     box-shadow: none;
@@ -35,26 +39,30 @@
 }
 #temperature {
     font-size: 10px;
+    margin: 4px 0;
     padding: 0 4px;
-    background-color: #E966A0;
 }
 #mpris.icon {
     font-size: 8px;
+    margin: 4px 0;
     padding: 0 8px 0 6px;
     background-color: #176B87;
 }
 #mpris.text {
     font-size: 10px;
+    margin: 4px 0;
     padding: 0 6px;
     background-color: #164B60;
 }
 #custom-pulseaudio-icon {
-    font-size: 10px;
-    padding: 0 8px 0 6px;
-    background-color: #4A55A2;
+    font-size: 12px;
+    margin: 4px 0 4px 0;
+    padding: 2px 10px 2px 6px;
+    background-color: #79155B;
 }
 #custom-pulseaudio-bar {
     font-size: 10px;
-    border: 1px solid #4A55A2;
-    background-color: #4A55A2;
+    background-color: #79155B;
+    margin: 4px 0 4px 0;
+    padding-right: 6px;
 }

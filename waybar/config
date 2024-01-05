@@ -1,15 +1,13 @@
 {
   "position": "top",
   "spacing": 8,
-  "margin-top": 4,
-  "margin-bottom": 4,
   "modules-left": [
-    "clock",
+    "hyprland/workspaces",
     "group/pulseaudio",
     "group/mpris"
   ],
   "modules-center": [
-    "wlr/workspaces"
+    "clock",
   ],
   "modules-right": [
     "temperature#cputctl",
@@ -18,15 +16,15 @@
   "clock": {
     "format": "{:%Y/%m/%d %H:%M}"
   },
-  "wlr/workspaces": {
+  "hyprland/workspaces": {
     "format": "{name}"
   },
   "temperature#cputctl": {
-    "format": "CPU {temperatureC}℃",
+    "format": "󰏈   {temperatureC}℃",
     "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input"
   },
   "temperature#amdgpu_edge": {
-    "format": "GPU {temperatureC}℃",
+    "format": "󰏈   {temperatureC}℃",
     "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input"
   },
   "group/mpris": {
@@ -59,7 +57,7 @@
   "custom/pulseaudio-bar": {
     "format": "{}",
     "interval": "once",
-    "exec": "~/.config/waybar/scripts/get-vol-bar.sh",
+    "exec": "~/.config/waybar/get_volume_bar.sh",
     "signal": 10
   }
 }
