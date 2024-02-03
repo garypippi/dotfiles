@@ -1,3 +1,5 @@
 go
 node_modules
 SKK-JISYO.L
+.deps
+SKK-JISYO.emoji.utf8

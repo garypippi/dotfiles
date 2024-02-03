@@ -93,8 +93,11 @@ local plugins = {
         end,
         config = function ()
             vim.fn['skkeleton#config']({
-                globalDictionaries = { vim.fn.stdpath('config') .. '/SKK-JISYO.L' },
-                eggLikeNewline = true
+                eggLikeNewline = true,
+                globalDictionaries = {
+                    { vim.fn.stdpath('config') .. '/SKK-JISYO.L', 'euc-jp' },
+                    { vim.fn.stdpath('config') .. '/SKK-JISYO.emoji.utf8', 'utf-8' }
+                },
             })
         end
     },
@@ -230,6 +233,7 @@ local plugins = {
             vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
             vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
             vim.keymap.set('n', '<leader>gs', '<cmd>Telescope git_status<cr>')
+            vim.keymap.set('n', '<leader>gc', '<cmd>Telescope git_commits<cr>')
             vim.keymap.set('n', '<leader>lr', '<cmd>Telescope lsp_references<cr>')
         end
     },
@@ -294,6 +298,8 @@ local plugins = {
                     }
                 }
             }
+            -- C/C++
+            lspc.ccls.setup{}
             -- Go
             lspc.gopls.setup{}
             --lspc.tsserver.setup{
@@ -359,24 +365,53 @@ local plugins = {
             }
             -- Lua
             lspc.lua_ls.setup{
-                settings = {
+                cmd = { vim.fn.stdpath('config') .. '/.deps/bin/lua-language-server' },
+                --settings = {
+                --    Lua = {
+                --        runtime = {
+                --            version = 'LuaJIT',
+                --            path = { 'lua/?.lua', 'lua/?/init.lua' }
+                --        },
+                --        diagnostics = {
+                --            globals = { 'vim' }
+                --        },
+                --        workspace = {
+                --            library = vim.api.nvim_get_runtime_file('', true),
+                --            checkThirdParty = false
+                --        },
+                --        telemetry = {
+                --            enable = false
+                --        }
+                --    }
+                --},
+                on_init = function(client)
+                    local path = client.workspace_folders[1].name
+                    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+                    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
                     Lua = {
-                        runtime = {
-                            version = 'LuaJIT',
-                            path = { 'lua/?.lua', 'lua/?/init.lua' }
-                        },
-                        diagnostics = {
-                            globals = { 'vim' }
-                        },
-                        workspace = {
-                            library = vim.api.nvim_get_runtime_file('', true),
-                            checkThirdParty = false
-                        },
-                        telemetry = {
-                            enable = false
-                        }
+                    runtime = {
+                    -- Tell the language server which version of Lua you're using
+                    -- (most likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT'
+                    },
+                    -- Make the server aware of Neovim runtime files
+                    workspace = {
+                    checkThirdParty = false,
+                    library = {
+                    vim.env.VIMRUNTIME
+                    -- "${3rd}/luv/library"
+                    -- "${3rd}/busted/library",
                     }
-                }
+                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                    -- library = vim.api.nvim_get_runtime_file("", true)
+                    }
+                    }
+                    })
+
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end
             }
             -- PHP
             lspc.phpactor.setup{}
