@@ -17,5 +17,14 @@ fi
 
 # Put your fun stuff here.
 
+# Env
+export CYPRESS_INSTALL_BINARY=0
+export CYPRESS_RUN_BINARY=$HOME/.local/opt/Cypress/Cypress/Cypress
+export STARSHIP_CACHE=$XDG_CACHE_HOME/starship
+export GOPATH=$HOME/.go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
 # Starship 🚀
 eval "$(starship init bash)"
+
