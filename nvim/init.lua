@@ -9,29 +9,37 @@ if not vim.loop.fs_stat(lazy_path) then
     vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim', '--branch=stable', lazy_path })
 end
 
+
 -- set runtime path
 vim.opt.rtp:prepend(lazy_path)
 
 -- plugins
 local plugins = {
     {
-        'catppuccin/nvim',
-        name = 'catppuccin',
-        config = function (_, opts)
-            require'catppuccin'.setup(opts)
-            vim.cmd[[colorscheme catppuccin]]
-        end,
-        opts = {
-            flavour = 'macchiato',
-            transparent_background = true,
-            no_italic = true,
-            integrations = {
-                fern = true,
-                telescope = true,
-                gitgutter = true
-            }
-        },
+        'lambdalisue/kensaku.vim',
+        dependencies = {
+            'vim-denops/denops.vim'
+        }
     },
+    require'plugins.theme'
+    --{
+    --    'catppuccin/nvim',
+    --    name = 'catppuccin',
+    --    config = function (_, opts)
+    --        require'catppuccin'.setup(opts)
+    --        vim.cmd[[colorscheme catppuccin]]
+    --    end,
+    --    opts = {
+    --        flavour = 'macchiato',
+    --        transparent_background = true,
+    --        no_italic = true,
+    --        integrations = {
+    --            fern = true,
+    --            telescope = true,
+    --            gitgutter = true
+    --        }
+    --    },
+    --},
     {
         'github/copilot.vim',
         init = function ()
@@ -137,6 +145,7 @@ local plugins = {
         },
         config = function ()
             local cmp = require'cmp'
+            --cmp.register_source('kkb', require('cmp_kkb'))
             cmp.setup{
                 snippet = {
                     expand = function (args)
@@ -152,7 +161,8 @@ local plugins = {
                 }, {
                     { name = 'buffer' },
                     { name = 'path' },
-                    { name = 'skkeleton' }
+                    { name = 'skkeleton' },
+                    --{ name = 'kkb' }
                 }),
                 formatting = {
                     format = require'lspkind'.cmp_format({
@@ -365,54 +375,77 @@ local plugins = {
             }
             -- Lua
             lspc.lua_ls.setup{
-                cmd = { vim.fn.stdpath('config') .. '/.deps/bin/lua-language-server' },
-                --settings = {
-                --    Lua = {
-                --        runtime = {
-                --            version = 'LuaJIT',
-                --            path = { 'lua/?.lua', 'lua/?/init.lua' }
-                --        },
-                --        diagnostics = {
-                --            globals = { 'vim' }
-                --        },
-                --        workspace = {
-                --            library = vim.api.nvim_get_runtime_file('', true),
-                --            checkThirdParty = false
-                --        },
-                --        telemetry = {
-                --            enable = false
-                --        }
-                --    }
-                --},
-                on_init = function(client)
-                    local path = client.workspace_folders[1].name
-                    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
-                    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+                cmd = {
+                    vim.fn.stdpath('config') .. '/.deps/bin/lua-language-server'
+                },
+                settings = {
                     Lua = {
-                    runtime = {
-                    -- Tell the language server which version of Lua you're using
-                    -- (most likely LuaJIT in the case of Neovim)
-                    version = 'LuaJIT'
-                    },
-                    -- Make the server aware of Neovim runtime files
-                    workspace = {
-                    checkThirdParty = false,
-                    library = {
-                    vim.env.VIMRUNTIME
-                    -- "${3rd}/luv/library"
-                    -- "${3rd}/busted/library",
+                        diagnostics = {
+                            globals = {'vim'}
+                        },
+                        runtime = {
+                            version = 'LuaJIT'
+                        },
+                        workspace = {
+                            library = {
+                                vim.env.VIMRUNTIME
+                            }
+                        }
                     }
-                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                    -- library = vim.api.nvim_get_runtime_file("", true)
-                    }
-                    }
-                    })
-
-      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-    end
-    return true
-  end
+                }
             }
+  --          lspc.lua_ls.setup{
+  --              cmd = { vim.fn.stdpath('config') .. '/.deps/bin/lua-language-server' },
+  --              --settings = {
+  --              --    Lua = {
+  --              --        runtime = {
+  --              --            version = 'LuaJIT',
+  --              --            path = { 'lua/?.lua', 'lua/?/init.lua' }
+  --              --        },
+  --              --        diagnostics = {
+  --              --            globals = { 'vim' }
+  --              --        },
+  --              --        workspace = {
+  --              --            library = vim.api.nvim_get_runtime_file('', true),
+  --              --            checkThirdParty = false
+  --              --        },
+  --              --        telemetry = {
+  --              --            enable = false
+  --              --        }
+  --              --    }
+  --              --},
+  --              on_init = function(client)
+  --                  local path = client.workspace_folders[1].name
+  --                  if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+  --                  client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+  --                      Lua = {
+  --                          diagnostics = {
+  --                              globals = {'vim'}
+  --                          },
+  --                          runtime = {
+  --                          -- Tell the language server which version of Lua you're using
+  --                          -- (most likely LuaJIT in the case of Neovim)
+  --                              version = 'LuaJIT'
+  --                          },
+  --                      -- Make the server aware of Neovim runtime files
+  --                      workspace = {
+  --                          checkThirdParty = false,
+  --                          library = {
+  --                              vim.env.VIMRUNTIME
+  --                          -- "${3rd}/luv/library"
+  --                          -- "${3rd}/busted/library",
+  --                      }
+  --                      -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+  --                      -- library = vim.api.nvim_get_runtime_file("", true)
+  --                          }
+  --                      }
+  --                  })
+
+  --    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+  --  end
+  --  return true
+  --end
+--            }
             -- PHP
             lspc.phpactor.setup{}
             -- Prettier
@@ -421,7 +454,7 @@ local plugins = {
                 formatStdin = true,
                 env = {
                     'PRETTIERD_LOCAL_PRETTIER_ONLY=1',
-                    --'PRETTIERD_DEFAULT_CONFIG=' .. vim.loop.cwd() .. '/.prettierrc.json'
+                    -- 'PRETTIERD_DEFAULT_CONFIG=' .. vim.loop.cwd() .. '/.prettierrc.json'
                 }
             }
             lspc.efm.setup{
@@ -464,3 +497,12 @@ vim.o.softtabstop = 4
 vim.o.termguicolors = true
 vim.o.completeopt = string.gsub(vim.o.completeopt, ",?preview,?", '')
 vim.o.laststatus = 3
+
+-- nnoremap g<tab> /\t\zs.<CR>
+--vim.keymap.set('n', '<Leader><Tab>', '/\\t.<CR> :noh<CR>')
+vim.keymap.set('n', '<Right>', '/\\(^\\|\\t\\zs.\\)<Cr><Esc>:noh<Cr>')
+vim.keymap.set('n', '<Left>', '?\\(^\\|\\t\\zs.\\)<Cr><Esc>:noh<Cr>')
+
+vim.keymap.set('i', '<c-c>', function ()
+    require'column_picker'()
+end)
