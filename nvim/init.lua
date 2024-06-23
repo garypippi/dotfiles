@@ -15,238 +15,30 @@ vim.opt.rtp:prepend(lazy_path)
 
 -- plugins
 local plugins = {
-    {
-        'lambdalisue/kensaku.vim',
-        dependencies = {
-            'vim-denops/denops.vim'
-        }
-    },
-    require'plugins.theme'
     --{
-    --    'catppuccin/nvim',
-    --    name = 'catppuccin',
-    --    config = function (_, opts)
-    --        require'catppuccin'.setup(opts)
-    --        vim.cmd[[colorscheme catppuccin]]
-    --    end,
-    --    opts = {
-    --        flavour = 'macchiato',
-    --        transparent_background = true,
-    --        no_italic = true,
-    --        integrations = {
-    --            fern = true,
-    --            telescope = true,
-    --            gitgutter = true
-    --        }
-    --    },
+    --    'lambdalisue/kensaku.vim',
+    --    dependencies = {
+    --        'vim-denops/denops.vim'
+    --    }
     --},
-    {
-        'github/copilot.vim',
-        init = function ()
-            vim.api.nvim_create_autocmd({'BufEnter'}, {
-                pattern = {'*'},
-                callback = function ()
-                    vim.b.copilot_enabled = false
-                end
-            })
-        end
-    },
-    {
-        'vim-test/vim-test',
-        init = function ()
-            vim.keymap.set('n', '<Leader>tf', ':TestFile<CR>')
-            vim.keymap.set('n', '<Leader>tn', ':TestNearest<CR>')
-        end
-    },
-    {
-        'nvim-treesitter/nvim-treesitter',
-        config = function ()
-            require'nvim-treesitter.configs'.setup{
-                highlight = { enable = true },
-                indent = { enable = true }
-            }
-        end
-    },
-    {
-        'cohama/lexima.vim'
-    },
-    {
-        'bronson/vim-trailing-whitespace'
-    },
-    {
-        'tpope/vim-fugitive'
-    },
-    {
-        'tpope/vim-sleuth'
-    },
-    {
-        'airblade/vim-gitgutter',
-        init = function ()
-            vim.keymap.set('n', ']h', ':GitGutterNextHunk<CR>')
-            vim.keymap.set('n', '[h', ':GitGutterPrevHunk<CR>')
-            vim.keymap.set('n', '<Leader>hp', ':GitGutterPreviewHunk<CR>')
-        end
-    },
-    {
-        'APZelos/blamer.nvim'
-    },
-    {
-        'vim-skk/skkeleton',
-        dependencies = {
-            'vim-denops/denops.vim'
-        },
-        init = function ()
-            vim.keymap.set('i', '<C-j>', '<Plug>(skkeleton-toggle)')
-            vim.keymap.set('c', '<C-j>', '<Plug>(skkeleton-toggle)')
-        end,
-        config = function ()
-            vim.fn['skkeleton#config']({
-                eggLikeNewline = true,
-                globalDictionaries = {
-                    { vim.fn.stdpath('config') .. '/SKK-JISYO.L', 'euc-jp' },
-                    { vim.fn.stdpath('config') .. '/SKK-JISYO.emoji.utf8', 'utf-8' }
-                },
-            })
-        end
-    },
-    {
-        'lambdalisue/fern.vim',
-        branch = 'main',
-        dependencies = {
-            'lambdalisue/nerdfont.vim',
-            'lambdalisue/fern-renderer-nerdfont.vim',
-            'lambdalisue/fern-git-status.vim',
-            'lambdalisue/glyph-palette.vim'
-        },
-        init = function ()
-            vim.g['fern#renderer'] = 'nerdfont'
-            vim.keymap.set('n', '<Leader>r', ':Fern .<CR>', { silent = true })
-            vim.keymap.set('n', '-', ':Fern . -reveal=%:p<CR>', { silent = true })
-            vim.api.nvim_create_augroup('glyph_palette', {
-                clear = true
-            })
-            vim.api.nvim_create_autocmd('FileType', {
-                group = 'glyph_palette',
-                pattern = { 'fern' },
-                command = 'call glyph_palette#apply()'
-            })
-        end
-    },
-    {
-        'hrsh7th/nvim-cmp',
-        dependencies = {
-            'hrsh7th/vim-vsnip',
-            'hrsh7th/cmp-vsnip',
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'uga-rosa/cmp-skkeleton',
-            'onsails/lspkind.nvim'
-        },
-        config = function ()
-            local cmp = require'cmp'
-            --cmp.register_source('kkb', require('cmp_kkb'))
-            cmp.setup{
-                snippet = {
-                    expand = function (args)
-                        vim.fn['vsnip#anonymous'](args.body)
-                    end
-                },
-                mapping = cmp.mapping.preset.insert{
-                    ['<c-k>'] = cmp.mapping.confirm()
-                },
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'vsnip' }
-                }, {
-                    { name = 'buffer' },
-                    { name = 'path' },
-                    { name = 'skkeleton' },
-                    --{ name = 'kkb' }
-                }),
-                formatting = {
-                    format = require'lspkind'.cmp_format({
-                        mode = 'symbol',
-                        menu = ({
-                            nvim_lsp = '[LSP]',
-                            skkeleton = '[SKK]',
-                            buffer = '[BUF]'
-                        })
-                    })
-                }
-            }
-        end
-    },
-    {
-        'Shougo/ddc.vim',
-        enabled = false,
-        dependencies = {
-            'vim-denops/denops.vim',
-            'Shougo/ddc-ui-native',
-            'Shougo/ddc-matcher_head',
-            'Shougo/ddc-sorter_rank',
-            'Shougo/ddc-source-nvim-lsp',
-            'Shougo/ddc-source-around'
-        },
-        config = function ()
-            -- ddc settings
-            vim.fn['ddc#custom#patch_global']{
-                ui = 'native',
-                sources = {
-                    'nvim-lsp',
-                    'skkeleton',
-                    'around'
-                },
-                sourceOptions = {
-                    ['nvim-lsp'] = {
-                        mark = '[LSP]',
-                        forceCompletionPattern = '\\.\\w*|:\\w*|->\\w*'
-                    },
-                    ['skkeleton'] = {
-                        mark = '[SKK]',
-                        matchers = { 'skkeleton' },
-                        sorters = {},
-                        minAutoCompleteLength = 2,
-                        maxItems = 1000
-                    },
-                    _ = {
-                        matchers = { 'matcher_head' },
-                        sorters = { 'sorter_rank' }
-                    }
-                },
-                sourceParams = {
-                    ['nvim-lsp'] = {
-                        enableResolveItem = true
-                    }
-                }
-            }
-            -- enable
-            vim.fn['ddc#enable']()
-        end
-    },
-    {
-        'nvim-lualine/lualine.nvim',
-        config = function ()
-            local config = require'lualine'.get_config()
-            table.insert(config.sections.lualine_c, function ()
-                return require('orgmode').action('clock.get_statusline')
-            end)
-            require'lualine'.setup(config)
-        end
-    },
-    {
-        'nvim-telescope/telescope.nvim',
-        dependencies = {
-            'nvim-lua/plenary.nvim'
-        },
-        init = function ()
-            vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
-            vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
-            vim.keymap.set('n', '<leader>gs', '<cmd>Telescope git_status<cr>')
-            vim.keymap.set('n', '<leader>gc', '<cmd>Telescope git_commits<cr>')
-            vim.keymap.set('n', '<leader>lr', '<cmd>Telescope lsp_references<cr>')
-        end
-    },
+    --{
+    --    'mattn/vim-maketable'
+    --},
+    --{
+    --    'sk1418/HowMuch'
+    --},
+    require'plugins.theme',
+    require'plugins.vim-test',
+    require'plugins.treesitter',
+    require'plugins.autopairs',
+    require'plugins.vim-trailing-whitespace',
+    require'plugins.git',
+    require'plugins.dynamic-indent-space',
+    require'plugins.skkeleton',
+    require'plugins.filer',
+    require'plugins.completion',
+    require'plugins.statusline',
+    require'plugins.telescope',
     {
         -- LSP
         'neovim/nvim-lspconfig',
@@ -480,6 +272,10 @@ local plugins = {
         end
     }
 }
+
+--for _, p in pairs({ require'plugins.git' }) do
+--    table.insert(plugins, p)
+--end
 
 require'lazy'.setup(plugins, {
     root = lazy_root
