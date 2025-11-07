@@ -19,12 +19,14 @@ fi
 
 # Env
 export CYPRESS_INSTALL_BINARY=0
-export CYPRESS_RUN_BINARY=$HOME/.local/opt/Cypress/Cypress/Cypress
+export CYPRESS_RUN_BINARY=$HOME/.local/opt/Cypress/Cypress
 export STARSHIP_CACHE=$XDG_CACHE_HOME/starship
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
+alias cdq='cd "`ghq list --full-path | peco`"'
+alias cdw='cd "`ls | wofi -d`"'
+
 # Starship 🚀
 eval "$(starship init bash)"
-
