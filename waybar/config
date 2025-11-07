@@ -1,4 +1,5 @@
 {
+  "output": "DP-1",
   "position": "top",
   "spacing": 8,
   "modules-left": [
@@ -21,11 +22,11 @@
   },
   "temperature#cputctl": {
     "format": "󰏈   {temperatureC}℃",
-    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input"
+    "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input"
   },
   "temperature#amdgpu_edge": {
     "format": "󰏈   {temperatureC}℃",
-    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input"
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input"
   },
   "group/mpris": {
     "orientation": "horizontal",
