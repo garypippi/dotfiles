@@ -1,0 +1,11 @@
+-- the org parser is cloned and compiled by orgmode itself on first run;
+-- keep "org" out of the nvim-treesitter install list (see plugins/treesitter.lua)
+vim.pack.add({ "https://github.com/nvim-orgmode/orgmode" })
+
+require("orgmode").setup({
+  org_agenda_files = "~/.org/**/*",
+  org_default_notes_file = "~/.org/inbox.org",
+})
+
+-- experimental
+vim.lsp.enable("org")

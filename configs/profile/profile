@@ -1,0 +1,25 @@
+# ~/.profile: login environment (sourced by greetd and ~/.bash_profile)
+
+export EDITOR=nvim
+export TERMINAL=alacritty
+export XDG_CACHE_HOME=/var/tmp/share/$USER
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
+export SSH_ASKPASS="askpass.sh"
+
+case ":$PATH:" in
+*":$HOME/.local/bin:"*) ;;
+*) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
+
+# toolchains
+export ANDROID_HOME=$HOME/.local/share/android-sdk
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+
+export CYPRESS_INSTALL_BINARY=0
+export CYPRESS_RUN_BINARY=$HOME/.local/opt/cypress/current/Cypress
+
+export GOPATH=$HOME/.go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
+export PATH=$PATH:$HOME/.cargo/bin

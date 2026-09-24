@@ -1,0 +1,43 @@
+font=Lilex Nerd Font Mono 10
+background-color=#404258BF
+format=%s\n%b
+border-size=1
+border-color=#6B728EFF
+border-radius=0
+margin=10,0
+outer-margin=4
+padding=8,8,16,8
+anchor=bottom-right
+default-timeout=4000
+
+[app-name=shot]
+format=<b>%s</b>\n%b
+padding=12,16
+border-color=#8BE9FDFF
+background-color=#282A36F7
+
+[app-name=record]
+format=<b>%s</b>\n%b
+padding=12,16
+border-color=#FF5555FF
+background-color=#282A36F7
+
+[app-name=record category=saved]
+border-color=#50FA7BFF
+
+[app-name=capture]
+font=Lilex Nerd Font Mono 11
+format=<b>%s</b>\n\n%b
+anchor=center
+layer=overlay
+width=440
+height=400
+padding=16,20
+border-color=#8BE9FDFF
+background-color=#282A36F7
+
+[app-name=capture category=rec]
+border-color=#FF5555FF
+
+[app-name=capture category=reca]
+border-color=#FF5555FF

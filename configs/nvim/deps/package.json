@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "@vtsls/language-server": "^0.3.0",
+    "awk-language-server": "^0.10.6",
+    "vscode-langservers-extracted": "^4.8.0"
+  }
+}

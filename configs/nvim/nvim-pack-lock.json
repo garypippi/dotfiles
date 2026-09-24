@@ -1,0 +1,81 @@
+{
+  "plugins": {
+    "catppuccin": {
+      "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "conform.nvim": {
+      "rev": "016802de402556da54c36bd7359b441266b01cdd",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "8d79f2410c76e62b92e51c28c82e28c1c5a3daeb",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "lexima.vim": {
+      "rev": "9f6942c5e1f0f6fe63bdcdac515f34c484b970f5",
+      "src": "https://github.com/cohama/lexima.vim"
+    },
+    "nvim-lspconfig": {
+      "rev": "046b1a797af1effe8e0474b9af9657a3761ec58a",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
+    },
+    "orgmode": {
+      "rev": "d9cd82d732cf4322100cf2c4c57b285c870bd893",
+      "src": "https://github.com/nvim-orgmode/orgmode"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "skkelua.nvim": {
+      "rev": "d3a1185ab97fc42d00a463e0fbd4616f429031ea",
+      "src": "https://github.com/kjuq/skkelua.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "vim-fern": {
+      "rev": "fd039979718b608a7c5912f163a07b230da1b5f4",
+      "src": "https://github.com/lambdalisue/vim-fern"
+    },
+    "vim-fern-git-status": {
+      "rev": "151336335d3b6975153dad77e60049ca7111da8e",
+      "src": "https://github.com/lambdalisue/vim-fern-git-status"
+    },
+    "vim-fern-renderer-nerdfont": {
+      "rev": "325629c68eb543229715b68920fbcb92b206beb6",
+      "src": "https://github.com/lambdalisue/vim-fern-renderer-nerdfont"
+    },
+    "vim-fugitive": {
+      "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "vim-glyph-palette": {
+      "rev": "675f0ad64e2c4b823bffc1907d469deefaf6e3bd",
+      "src": "https://github.com/lambdalisue/vim-glyph-palette"
+    },
+    "vim-maketable": {
+      "rev": "d72e73f333c64110524197ec637897bd1464830f",
+      "src": "https://github.com/mattn/vim-maketable"
+    },
+    "vim-nerdfont": {
+      "rev": "3a28b3f061a8b6de751175cc3f91f072d4bfc811",
+      "src": "https://github.com/lambdalisue/vim-nerdfont"
+    },
+    "vim-sleuth": {
+      "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
+      "src": "https://github.com/tpope/vim-sleuth"
+    },
+    "vim-test": {
+      "rev": "0ea8ee90e056118343d843a4406644de5e6b37ea",
+      "src": "https://github.com/vim-test/vim-test"
+    }
+  }
+}
